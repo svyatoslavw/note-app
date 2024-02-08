@@ -3,7 +3,7 @@
 An Note application with React and TypeScript
 
 <div align="center">
-  <a href="#"><img src="https://github.com/svyatoslavw/note-app/blob/main/src/design/1.png" alt="screenshot" /></a><br>
+  <a href="#"><img src="https://github.com/svyatoslavw/note-app/blob/main/design/1.png" alt="screenshot" /></a><br>
 </div>
 
 ## Recommended IDE Setup
