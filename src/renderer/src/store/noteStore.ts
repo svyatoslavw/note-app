@@ -8,8 +8,8 @@ interface INoteStore {
   selectedNoteIndex: number | null
   setSelectedNoteIndex: (index: number) => void
   loadNotes: () => Promise<void>
-  selectedNote: CombinedNote
-  selectNote: () => Promise<void>
+  selectedNote: CombinedNote | null
+  setSelectedNote: () => Promise<void>
   saveNote: (newContent: NoteContent) => Promise<void>
   createEmptyNote: () => any
   deleteNote: () => void
@@ -17,7 +17,7 @@ interface INoteStore {
 
 const useNotesStore = create<INoteStore>((set) => ({
   notes: [],
-  selectedNote: { title: '', content: '', lastEditTime: 0 },
+  selectedNote: null,
   selectedNoteIndex: null,
   loadNotes: async () => {
     const notes = await window.context.getNotes()
@@ -26,7 +26,7 @@ const useNotesStore = create<INoteStore>((set) => ({
 
   setSelectedNoteIndex: (index) => set({ selectedNoteIndex: index }),
 
-  selectNote: async () => {
+  setSelectedNote: async () => {
     const { notes, selectedNoteIndex } = useNotesStore.getState()
     if (selectedNoteIndex === null || !notes) return
     const selectedNote = notes[selectedNoteIndex]
@@ -40,11 +40,7 @@ const useNotesStore = create<INoteStore>((set) => ({
   },
 
   saveNote: async (newContent) => {
-    const state = useNotesStore.getState()
-    const selectedNoteIndex = state.selectedNoteIndex
-    const notes = state.notes
-
-    const selectedNote = selectedNoteIndex ? notes[selectedNoteIndex] : null
+    const { notes, selectedNote } = useNotesStore.getState()
 
     if (!selectedNote || !notes) return
 
@@ -72,15 +68,13 @@ const useNotesStore = create<INoteStore>((set) => ({
     }
 
     set((state) => ({
-      notes: [newNote, ...state.notes],
+      notes: [newNote, ...state.notes.filter((note) => note.title !== newNote.title)],
       selectedNoteIndex: null
     }))
   },
 
   deleteNote: async () => {
-    const { notes, selectedNoteIndex } = useNotesStore.getState()
-
-    const selectedNote = selectedNoteIndex ? notes[selectedNoteIndex] : null
+    const { notes, selectedNote } = useNotesStore.getState()
 
     if (!selectedNote || !notes) return
 
@@ -90,7 +84,8 @@ const useNotesStore = create<INoteStore>((set) => ({
 
     set((state) => ({
       notes: state.notes.filter((note) => note.title !== selectedNote.title),
-      selectedNoteIndex: null
+      selectedNoteIndex: null,
+      selectedNote: null
     }))
   }
 }))

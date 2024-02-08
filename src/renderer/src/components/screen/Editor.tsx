@@ -33,9 +33,8 @@ Example table:
 
 const Editor = () => {
   const { editorRef, handleAutoSave, handleBlur, selectedNote } = useEditor()
-  console.log(selectedNote.content)
 
-  if (!selectedNote.title)
+  if (!selectedNote)
     return (
       <div className="flex items-center justify-center h-1/2 text-lg font-medium italic text-neutral-500">
         Please select a note or{' '}
