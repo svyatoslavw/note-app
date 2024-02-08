@@ -1,0 +1,75 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  #root {
+    @apply h-full;
+  }
+
+  html,
+  body {
+    @apply h-full;
+
+    @apply select-none;
+
+    @apply bg-transparent;
+
+    @apply font-sans antialiased text-black;
+
+    @apply overflow-hidden scroll-smooth;
+  }
+}
+
+.mdxeditor > div {
+  border-radius: 0;
+  padding: 5px 60px;
+}
+
+._listItem {
+  background-color: black;
+}
+.mdxeditor-root-contenteditable > li {
+  background-color: black;
+}
+
+body {
+  --sb-track-color: #dfdfdf;
+  --sb-thumb-color: #f5f5f5;
+  --sb-size: 6px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--sb-thumb-color) var(--sb-track-color);
+}
+
+html {
+  scroll-margin: 0;
+  scrollbar-width: thin;
+}
+
+::-webkit-scrollbar {
+  width: var(--sb-size);
+}
+
+::-webkit-scrollbar-track {
+  background: var(--sb-track-color);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--sb-thumb-color);
+  border-radius: 10px;
+}
+
+::-moz-scrollbar {
+  width: var(--sb-size);
+}
+
+::-moz-scrollbar-track {
+  background: var(--sb-track-color);
+  border-radius: 10px;
+}
+
+::-moz-scrollbar-thumb {
+  background: var(--sb-thumb-color);
+  border-radius: 10px;
+}
